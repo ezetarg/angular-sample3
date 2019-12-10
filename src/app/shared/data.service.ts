@@ -12,7 +12,7 @@ export class DataService {
   }
 
   savePedido(pedido: Pedido) {
-    return this.http.post(environment.apiUrl + '/dashboard', pedido);
+    return this.http.post(environment.apiUrl + '/pedido/guardar', pedido, { responseType: 'json' });
   }
 
   test() {
@@ -20,6 +20,9 @@ export class DataService {
   }
 }
 
-class Pedido {
-  idPedido: number;
+export class Pedido {
+  idPedido: number = null;
+  nombre: string;
+  monto: number;
+  descuento: number;
 }

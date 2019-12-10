@@ -1,1 +1,88 @@
-<p>pedido works!</p>
+<div class="columns">
+  <div class="column">
+    <form (ngSubmit)="onSubmit()" #pedidoForm="ngForm">
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label" for="nombre">Nombre</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input id="nombre" name="nombre"
+                     class="input" type="text" placeholder="Ejemplo: Juan Rosas"
+                     required="required" [(ngModel)]="model.nombre" #nombre="ngModel"/>
+            </div>
+
+            <p class="help is-danger" *ngIf="!nombre.valid && !monto.pristine">
+              * Campo requerido
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label" for="monto">Monto</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-expanded">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static"> $ </a>
+              </p>
+              <p class="control is-expanded">
+                <input id="monto" name="monto"
+                       class="input" type="number" placeholder="0,00"
+                       required [(ngModel)]="model.monto" #monto="ngModel" />
+              </p>
+            </div>
+
+            <p class="help is-danger" *ngIf="!monto.valid && !monto.pristine">
+              * Campo requerido
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label" for="descuento">Descuento</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-expanded">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static"> $ </a>
+              </p>
+              <p class="control is-expanded">
+                <input id="descuento" name="descuento"
+                       class="input" type="number" placeholder="0,00"
+                       required [(ngModel)]="model.descuento" #descuento="ngModel"/>
+              </p>
+            </div>
+
+            <p class="help is-danger" *ngIf="!descuento.valid && !descuento.pristine">
+              * Campo requerido
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="field is-horizontal">
+        <div class="field-label">
+          <!-- Left empty for spacing -->
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary" [disabled]="!pedidoForm.form.valid">
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
