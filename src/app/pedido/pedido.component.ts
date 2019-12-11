@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService, Pedido } from '../shared/data.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pedido',
@@ -8,23 +9,27 @@ import { DataService, Pedido } from '../shared/data.service';
 })
 export class PedidoComponent implements OnInit {
   model = new Pedido();
-  submitted = false;
+  @ViewChild('pedidoForm', {static: false}) pedidoForm: NgForm;
+  formWasSent = false;
+  sendingForm = false;
 
   constructor(private dataService: DataService) {
   }
 
   ngOnInit() {
-    console.log(this.dataService.test());
   }
 
   onSubmit() {
-    this.submitted = true;
-
+    this.sendingForm = true;
     this.dataService.savePedido(this.model).toPromise().then(response => {
+      this.pedidoForm.reset();
       this.model = new Pedido();
-      this.submitted = false;
+      this.formWasSent = true;
+      this.sendingForm = false;
     }).catch(reason => {
-      console.log('reason', reason);
+      console.error('reason', reason);
+      this.formWasSent = false;
+      this.sendingForm = false;
     });
   }
 }

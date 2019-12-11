@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class DataService {
     return this.http.post(environment.apiUrl + '/pedido/guardar', pedido, { responseType: 'json' });
   }
 
-  test() {
-    return true;
+  getPedido(idPedido: number): Observable<Pedido> {
+    return this.http.get<Pedido>(environment.apiUrl + '/pedido');
   }
 }
 

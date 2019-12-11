@@ -32,7 +32,7 @@
               </p>
               <p class="control is-expanded">
                 <input id="monto" name="monto"
-                       class="input" type="number" placeholder="0,00"
+                       class="input" type="number" placeholder="0"
                        required [(ngModel)]="model.monto" #monto="ngModel" />
               </p>
             </div>
@@ -56,14 +56,10 @@
               </p>
               <p class="control is-expanded">
                 <input id="descuento" name="descuento"
-                       class="input" type="number" placeholder="0,00"
-                       required [(ngModel)]="model.descuento" #descuento="ngModel"/>
+                       class="input" type="number" placeholder="0"
+                       [(ngModel)]="model.descuento"/>
               </p>
             </div>
-
-            <p class="help is-danger" *ngIf="!descuento.valid && !descuento.pristine">
-              * Campo requerido
-            </p>
           </div>
         </div>
       </div>
@@ -76,10 +72,18 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <button class="button is-primary" [disabled]="!pedidoForm.form.valid">
+              <button class="button is-primary" [ngClass]="{'is-loading': sendingForm}"
+                      [disabled]="!pedidoForm.form.valid">
                 Guardar
               </button>
             </div>
+
+            <p class="help is-danger" *ngIf="formWasSent && pedidoForm.pristine">
+              <span class="tag is-normal">
+                Pedido guardado!
+                <button class="delete is-small" (click)="formWasSent = false"></button>
+              </span>
+            </p>
           </div>
         </div>
       </div>
